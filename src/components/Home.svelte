@@ -4,22 +4,25 @@
     import { getBaseurl } from "../services/ToolService.js";
 
     PageStore.set("home");
+    let allarticle = [];
     function getData(){
-        fetch(getBaseurl() + "/getallcategory")
-		.then(response=>response.json())
-		.then(json=>{
-			console.log(json)
-		});
+        fetch(getBaseurl() + "/getallarticle")
+        .then(response=>response.json())
+        .then(json=>{
+          console.log(json);
+          allarticle = json["data"].reverse();
+        });
     }
 
     onMount(() => { // = onMount + beforeDestroy
-		//......
-		getData();
-	});
+		  getData();
+	  });
 </script>
 
 <div id="home">
-	home
+    <div class="container pt-5">
+      home
+    </div>
 </div>
 
 <style>

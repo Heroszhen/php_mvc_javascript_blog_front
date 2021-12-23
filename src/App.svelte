@@ -3,11 +3,10 @@
 
 	import { Router, Route, Link, navigate } from "svelte-navigator";
 	import PageStore from './stores/PageStore.js';
-	import { onMount, onDestroy } from 'svelte';
-	import { getBaseurl, getRelativepath, stopPropagation } from './services/ToolService.js';
+	import { onDestroy } from 'svelte';
+	import { getRelativepath } from './services/ToolService.js';
 
 
-	let baseurl = getBaseurl();
 	let page = "";
 	//developement on localhost
 	window.onload = () =>{
@@ -20,13 +19,34 @@
 		page = value;
 	});
 	onDestroy(unsubscribe);
+
 </script>
 
 <Router primary={false}>
-	<header>
-
-	</header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+		<div class="navbar-brand mr-5">Mon Blog</div>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+	  
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		  <ul class="navbar-nav mr-auto">
+			<li class="nav-item" class:active="{page==='home'}">
+				<Link to="/" class="nav-link">Accueil</Link>
+			</li>
+			<li class="nav-item" class:active="{page==='connection'}">
+				<Link to="/connexion" class="nav-link">Connexion</Link>
+			</li>
+			<li class="nav-item" class:active="{page==='registration'}">
+				<Link to="/inscription" class="nav-link">Inscription</Link>
+			</li>
+		  </ul>
+		</div>
+	</nav>
 	<main>
+		<div>
+			<img src="assets/shutterstock_731369419-min.png" alt="">
+		</div>
 		<Route path="/">
 			<Home />
 		</Route>
@@ -34,5 +54,8 @@
 </Router>
 
 <style>
-	
+	nav li.nav-item.active :global(.nav-link){
+		color:orange;
+		font-weight: bold;
+	}
 </style>
